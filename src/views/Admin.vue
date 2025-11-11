@@ -19,7 +19,9 @@
             {{ lastCalled.name }}
           </h1>
           <img
-            :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${lastCalled.id}.svg`"
+            :src="
+              `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${lastCalled.id}.svg`
+            "
             :alt="lastCalled.name"
             style="height: 375px; max-width: 100%"
           />
@@ -56,7 +58,9 @@
             style="display: flex; align-items: center; margin-bottom: 20px"
           >
             <img
-              :src="`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`"
+              :src="
+                `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`
+              "
               :alt="pokemon.name"
               width="60"
             />
@@ -80,13 +84,13 @@
 export default {
   data() {
     return {
-      search: null,
+      search: null
     };
   },
   computed: {
     filtered() {
       if (!this.search) return this.reversed;
-      return this.reversed.filter((pokemon) =>
+      return this.reversed.filter(pokemon =>
         pokemon.name.includes(this.search.toLowerCase())
       );
     },
@@ -98,8 +102,8 @@ export default {
     reversed() {
       const clone = [...this.$store.state.calledPokemon];
       return clone.reverse();
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -109,7 +113,7 @@ button {
   font-size: 1.5rem;
   color: #3c68ac;
   background: #f8cc46;
-  border: 3px solid#3c68ac;
+  border: 3px solid #3c68ac;
   border-radius: 5px;
   text-transform: uppercase;
   font-weight: bold;

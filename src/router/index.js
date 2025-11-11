@@ -9,6 +9,9 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
+    meta: {
+      title: "Pokémon Bingo"
+    }
   },
   {
     path: "/admin",
@@ -18,11 +21,19 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Admin.vue"),
-  },
+    meta: {
+      title: "Pokémon Bingo - Admin"
+    }
+  }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
+});
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title || "Pokémon Bingo";
+  next();
 });
 
 export default router;

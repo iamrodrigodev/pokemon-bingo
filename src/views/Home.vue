@@ -11,7 +11,7 @@ import GameBoard from "@/components/GameBoard.vue";
 export default {
   name: "Home",
   components: {
-    GameBoard,
-  },
+    GameBoard
+  }
 };
 </script>

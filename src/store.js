@@ -5,14 +5,14 @@ const state = Vue.observable({
   called: [],
   get calledPokemon() {
     const called = [];
-    this.called.forEach((index) => {
+    this.called.forEach(index => {
       called.push(this.shuffledPokemon[index]);
     });
     return called;
   },
   allPokemon: null,
   shuffledPokemon: null,
-  selected: [],
+  selected: []
 });
 
 const Pokedex = new pokeapi.Pokedex();
@@ -27,7 +27,7 @@ export default {
     state.allPokemon = (
       await Pokedex.getPokemonsList({
         limit,
-        offset,
+        offset
       })
     ).results;
     state.allPokemon = state.allPokemon.map((pokemon, index) => {
@@ -43,7 +43,7 @@ export default {
 
   toggleCell(index) {
     if (state.selected.includes(index)) {
-      state.selected = state.selected.filter((i) => i != index);
+      state.selected = state.selected.filter(i => i != index);
     } else {
       state.selected.push(index);
     }
@@ -56,7 +56,7 @@ export default {
       console.log("pushing", randomOne);
       state.called.push(randomOne);
     }
-  },
+  }
 };
 
 function shuffle(array) {

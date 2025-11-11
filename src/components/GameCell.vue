@@ -33,8 +33,8 @@ export default {
     },
     isSelected() {
       return this.$store.state.selected.includes(this.index);
-    },
-  },
+    }
+  }
 };
 </script>
 <style>
