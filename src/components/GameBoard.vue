@@ -15,19 +15,15 @@
           `margin: 5px; background: #eee; width: ${size}px; height: ${size}px`
         "
         :index="n + (i - 1) * dimensions[0]"
+        :n="n"
       />
     </div>
   </div>
 </template>
-<script>
-import GameCell from "@/components/GameCell";
-export default {
-  components: { GameCell },
-  data() {
-    return {
-      dimensions: [4, 4],
-      size: 160
-    };
-  }
-};
+<script setup lang="ts">
+import GameCell from "@/components/GameCell.vue";
+import { ref } from "vue";
+
+const dimensions = ref([4, 4]);
+const size = ref(160);
 </script>

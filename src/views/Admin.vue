@@ -1,6 +1,6 @@
 <template>
   <div class="admin" style="margin: 0 auto; margin-top: 30px; max-width: 900px">
-    <button @click="$store.call()">
+    <button @click="store?.call()">
       {{ lastCalled ? "Next Pokemon" : "Start Game" }}
     </button>
 
@@ -80,31 +80,32 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      search: null
-    };
-  },
-  computed: {
-    filtered() {
-      if (!this.search) return this.reversed;
-      return this.reversed.filter(pokemon =>
-        pokemon.name.includes(this.search.toLowerCase())
-      );
-    },
-    lastCalled() {
-      const called = this.$store.state.calledPokemon;
-      if (!called) return null;
-      return called[called.length - 1];
-    },
-    reversed() {
-      const clone = [...this.$store.state.calledPokemon];
-      return clone.reverse();
-    }
-  }
-};
+<script setup lang="ts">
+import { ref, computed, inject } from "vue";
+import { storeKey } from "@/store";
+
+const search = ref<string | null>(null);
+const store = inject(storeKey);
+
+const reversed = computed(() => {
+  if (!store) return [];
+  const clone = [...store.state.calledPokemon];
+  return clone.reverse();
+});
+
+const filtered = computed(() => {
+  if (!search.value) return reversed.value;
+  return reversed.value.filter(pokemon =>
+    pokemon.name.includes(search.value?.toLowerCase() ?? "")
+  );
+});
+
+const lastCalled = computed(() => {
+  if (!store) return null;
+  const called = store.state.calledPokemon;
+  if (!called || called.length === 0) return null;
+  return called[called.length - 1];
+});
 </script>
 
 <style>

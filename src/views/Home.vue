@@ -4,14 +4,6 @@
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
+<script setup lang="ts">
 import GameBoard from "@/components/GameBoard.vue";
-
-export default {
-  name: "Home",
-  components: {
-    GameBoard
-  }
-};
 </script>

@@ -24,12 +24,15 @@
     </div>
   </div>
 </template>
-<script>
-export default {
-  created() {
-    this.$store.init();
-  }
-};
+<script setup lang="ts">
+import { onMounted, inject } from "vue";
+import { storeKey } from "./store";
+
+const store = inject(storeKey);
+
+onMounted(() => {
+  store?.init();
+});
 </script>
 
 <style>
