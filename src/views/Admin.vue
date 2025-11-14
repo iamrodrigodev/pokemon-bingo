@@ -82,10 +82,10 @@
 
 <script setup lang="ts">
 import { ref, computed, inject } from "vue";
-import { storeKey } from "@/store";
+import { storeKey, type Store } from "@/store";
 
 const search = ref<string | null>(null);
-const store = inject(storeKey);
+const store = inject(storeKey) as Store;
 
 const reversed = computed(() => {
   if (!store) return [];

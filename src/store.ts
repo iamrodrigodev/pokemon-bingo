@@ -1,6 +1,6 @@
-import { reactive, readonly } from "vue";
+import { reactive } from "vue";
 import type { InjectionKey } from "vue";
-const pokeapi = require("pokeapi-js-wrapper");
+import { Pokedex } from "pokeapi-js-wrapper";
 
 // Interfaces for type safety
 interface Pokemon {
@@ -17,12 +17,23 @@ interface StoreState {
   selected: number[];
 }
 
+interface StoreActions {
+  init(): Promise<void>;
+  shuffle(): void;
+  toggleCell(index: number): void;
+  call(): void;
+}
+
+interface Store extends StoreActions {
+  readonly state: StoreState;
+}
+
 const state = reactive<StoreState>({
   called: [],
-  get calledPokemon() {
+  get calledPokemon(): Pokemon[] {
     if (!this.shuffledPokemon) return [];
     const called: Pokemon[] = [];
-    this.called.forEach(index => {
+    this.called.forEach((index: number) => {
       if (this.shuffledPokemon) {
         called.push(this.shuffledPokemon[index]);
       }
@@ -34,40 +45,40 @@ const state = reactive<StoreState>({
   selected: []
 });
 
-const Pokedex = new pokeapi.Pokedex();
+const Pokedex_instance = new Pokedex();
 
-const actions = {
-  async init() {
-    const limit = 50;
-    const offset = 0;
+const actions: StoreActions = {
+  async init(): Promise<void> {
+    const limit: number = 50;
+    const offset: number = 0;
     const pokemonList = (
-      await Pokedex.getPokemonsList({
+      await Pokedex_instance.getPokemonsList({
         limit,
         offset
       })
     ).results;
-    state.allPokemon = pokemonList.map((pokemon: { name: string; url: string }, index: number) => {
+    state.allPokemon = pokemonList.map((pokemon: { name: string; url: string }, index: number): Pokemon => {
       return { ...pokemon, id: index + 1 };
     });
     this.shuffle();
   },
 
-  shuffle() {
+  shuffle(): void {
     if (state.allPokemon) {
       const cloned = [...state.allPokemon];
       state.shuffledPokemon = shuffle(cloned);
     }
   },
 
-  toggleCell(index: number) {
+  toggleCell(index: number): void {
     if (state.selected.includes(index)) {
-      state.selected = state.selected.filter(i => i != index);
+      state.selected = state.selected.filter((i: number) => i !== index);
     } else {
       state.selected.push(index);
     }
   },
 
-  call() {
+  call(): void {
     if (state.shuffledPokemon) {
       const randomOne = randomNumber(0, state.shuffledPokemon.length - 1);
       if (state.called.includes(randomOne)) {
@@ -80,9 +91,9 @@ const actions = {
 };
 
 function shuffle<T>(array: T[]): T[] {
-  var currentIndex = array.length,
-    temporaryValue,
-    randomIndex;
+  let currentIndex = array.length;
+  let temporaryValue: T;
+  let randomIndex: number;
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -103,9 +114,12 @@ function randomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-export const store = {
-  state: readonly(state),
+export const store: Store = {
+  get state() {
+    return state;
+  },
   ...actions
 };
 
-export const storeKey: InjectionKey<typeof store> = Symbol("store");
+export const storeKey: InjectionKey<Store> = Symbol("store");
+export type { Pokemon, Store };

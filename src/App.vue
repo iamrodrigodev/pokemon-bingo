@@ -26,9 +26,9 @@
 </template>
 <script setup lang="ts">
 import { onMounted, inject } from "vue";
-import { storeKey } from "./store";
+import { storeKey, type Store } from "./store";
 
-const store = inject(storeKey);
+const store = inject(storeKey) as Store;
 
 onMounted(() => {
   store?.init();

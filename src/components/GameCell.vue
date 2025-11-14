@@ -23,14 +23,14 @@
 </template>
 <script setup lang="ts">
 import { computed, inject } from "vue";
-import { storeKey } from "@/store";
+import { storeKey, type Store } from "@/store";
 
 const props = defineProps<{
   index: number;
   n: number;
 }>();
 
-const store = inject(storeKey);
+const store = inject(storeKey) as Store;
 
 const pokemon = computed(() => {
   if (!store?.state.shuffledPokemon) return null;
