@@ -46,7 +46,7 @@ const state = reactive<StoreState>({
   },
   allPokemon: null,
   shuffledPokemon: null,
-  selected: []
+  selected: [],
 });
 
 const Pokedex_instance: Pokedex = new Pokedex();
@@ -58,7 +58,7 @@ const actions: StoreActions = {
     const pokemonList = (
       await Pokedex_instance.getPokemonsList({
         limit,
-        offset
+        offset,
       })
     ).results;
     state.allPokemon = pokemonList.map(
@@ -93,7 +93,7 @@ const actions: StoreActions = {
         state.called.push(randomOne);
       }
     }
-  }
+  },
 };
 
 function shuffle<T>(array: T[]): T[] {
@@ -122,7 +122,7 @@ function randomNumber(min: number, max: number): number {
 
 export const store: Store = {
   state: state,
-  ...actions
+  ...actions,
 };
 
 export const storeKey: InjectionKey<Store> = Symbol('store');

@@ -2,20 +2,9 @@
   <div id="app">
     <div id="nav">
       <h1
-        style="
-          display: flex;
-          align-items: end;
-          justify-content: center;
-          font-size: 3rem;
-          margin: 0;
-        "
+        style="display: flex; align-items: end; justify-content: center; font-size: 3rem; margin: 0"
       >
-        <img
-          src="/pokemon-logo.png"
-          alt=""
-          width="200"
-          style="margin-right: 10px"
-        >
+        <img src="/pokemon-logo.png" alt="" width="200" style="margin-right: 10px" />
         Bingo
       </h1>
     </div>
@@ -46,7 +35,7 @@ body {
   min-height: 100%;
 }
 body {
-  background: url("/bg.jpg") no-repeat !important;
+  background: url('/bg.jpg') no-repeat !important;
   background-size: cover !important;
   background-position: center bottom !important;
 }

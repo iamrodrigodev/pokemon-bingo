@@ -15,7 +15,7 @@
       :src="imgUrl"
       style="max-width: 70%; max-height: 70%; margin: 0 auto; display: block"
       :alt="pokemon.name"
-    >
+    />
     <div v-if="pokemon" style="width: 100%; margin-top: 5px; text-transform: capitalize">
       {{ pokemon.name }}
     </div>
@@ -52,4 +52,3 @@ const isSelected = computed<boolean>(() => {
   background: #73b7ff !important;
 }
 </style>
-
