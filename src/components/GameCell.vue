@@ -23,7 +23,8 @@
 </template>
 <script setup lang="ts">
 import { computed, inject } from "vue";
-import { storeKey, type Store } from "@/store";
+import { storeKey } from "@/store";
+import type { Store, Pokemon } from "@/store";
 
 const props = defineProps<{
   index: number;
@@ -32,17 +33,17 @@ const props = defineProps<{
 
 const store = inject(storeKey) as Store;
 
-const pokemon = computed(() => {
+const pokemon = computed<Pokemon | null>(() => {
   if (!store?.state.shuffledPokemon) return null;
   return store.state.shuffledPokemon[props.index];
 });
 
-const imgUrl = computed(() => {
+const imgUrl = computed<string>(() => {
   if (!pokemon.value) return "";
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.value.id}.svg`;
 });
 
-const isSelected = computed(() => {
+const isSelected = computed<boolean>(() => {
   return store?.state.selected.includes(props.index) ?? false;
 });
 </script>

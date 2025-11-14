@@ -1,4 +1,4 @@
-import { reactive } from "vue";
+import { reactive, readonly } from "vue";
 import type { InjectionKey } from "vue";
 import { Pokedex } from "pokeapi-js-wrapper";
 
@@ -24,8 +24,12 @@ interface StoreActions {
   call(): void;
 }
 
-interface Store extends StoreActions {
+export interface Store {
   readonly state: StoreState;
+  init(): Promise<void>;
+  shuffle(): void;
+  toggleCell(index: number): void;
+  call(): void;
 }
 
 const state = reactive<StoreState>({
@@ -45,27 +49,29 @@ const state = reactive<StoreState>({
   selected: []
 });
 
-const Pokedex_instance = new Pokedex();
+const Pokedex_instance: Pokedex = new Pokedex();
 
 const actions: StoreActions = {
   async init(): Promise<void> {
-    const limit: number = 50;
-    const offset: number = 0;
+    const limit = 151;
+    const offset = 0;
     const pokemonList = (
       await Pokedex_instance.getPokemonsList({
         limit,
         offset
       })
     ).results;
-    state.allPokemon = pokemonList.map((pokemon: { name: string; url: string }, index: number): Pokemon => {
-      return { ...pokemon, id: index + 1 };
-    });
+    state.allPokemon = pokemonList.map(
+      (pokemon: { name: string; url: string }, index: number): Pokemon => {
+        return { ...pokemon, id: index + 1 };
+      }
+    );
     this.shuffle();
   },
 
   shuffle(): void {
     if (state.allPokemon) {
-      const cloned = [...state.allPokemon];
+      const cloned: Pokemon[] = [...state.allPokemon];
       state.shuffledPokemon = shuffle(cloned);
     }
   },
@@ -115,11 +121,9 @@ function randomNumber(min: number, max: number): number {
 }
 
 export const store: Store = {
-  get state() {
-    return state;
-  },
+  state: readonly(state),
   ...actions
 };
 
 export const storeKey: InjectionKey<Store> = Symbol("store");
-export type { Pokemon, Store };
+export type { Pokemon };

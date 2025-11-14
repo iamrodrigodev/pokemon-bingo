@@ -23,7 +23,8 @@
 <script setup lang="ts">
 import GameCell from "@/components/GameCell.vue";
 import { ref } from "vue";
+import type { Ref } from "vue";
 
-const dimensions = ref([4, 4]);
-const size = ref(160);
+const dimensions: Ref<[number, number]> = ref([4, 4]);
+const size: Ref<number> = ref(160);
 </script>

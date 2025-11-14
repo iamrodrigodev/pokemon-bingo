@@ -82,25 +82,26 @@
 
 <script setup lang="ts">
 import { ref, computed, inject } from "vue";
-import { storeKey, type Store } from "@/store";
+import { storeKey } from "@/store";
+import type { Store, Pokemon } from "@/store";
 
 const search = ref<string | null>(null);
 const store = inject(storeKey) as Store;
 
-const reversed = computed(() => {
+const reversed = computed<Pokemon[]>(() => {
   if (!store) return [];
   const clone = [...store.state.calledPokemon];
   return clone.reverse();
 });
 
-const filtered = computed(() => {
+const filtered = computed<Pokemon[]>(() => {
   if (!search.value) return reversed.value;
   return reversed.value.filter(pokemon =>
     pokemon.name.includes(search.value?.toLowerCase() ?? "")
   );
 });
 
-const lastCalled = computed(() => {
+const lastCalled = computed<Pokemon | null>(() => {
   if (!store) return null;
   const called = store.state.calledPokemon;
   if (!called || called.length === 0) return null;
