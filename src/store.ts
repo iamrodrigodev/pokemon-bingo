@@ -1,6 +1,7 @@
 import { reactive, readonly } from "vue";
 import type { InjectionKey } from "vue";
 import { Pokedex } from "pokeapi-js-wrapper";
+import { supabase } from "./lib/supabaseClient";
 
 // Interfaces for type safety
 interface Pokemon {
