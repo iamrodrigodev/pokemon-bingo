@@ -21,9 +21,9 @@
   </div>
 </template>
 <script setup lang="ts">
-import GameCell from "@/components/GameCell.vue";
-import { ref } from "vue";
-import type { Ref } from "vue";
+import GameCell from '@/components/GameCell.vue';
+import { ref } from 'vue';
+import type { Ref } from 'vue';
 
 const dimensions: Ref<[number, number]> = ref([4, 4]);
 const size: Ref<number> = ref(160);

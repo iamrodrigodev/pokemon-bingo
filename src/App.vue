@@ -15,7 +15,7 @@
           alt=""
           width="200"
           style="margin-right: 10px"
-        />
+        >
         Bingo
       </h1>
     </div>
@@ -25,8 +25,8 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, inject } from "vue";
-import { storeKey, type Store } from "./store";
+import { onMounted, inject } from 'vue';
+import { storeKey, type Store } from './store';
 
 const store = inject(storeKey) as Store;
 

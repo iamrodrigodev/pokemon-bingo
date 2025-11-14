@@ -1,7 +1,6 @@
-import { reactive, readonly } from "vue";
-import type { InjectionKey } from "vue";
-import { Pokedex } from "pokeapi-js-wrapper";
-import { supabase } from "./lib/supabaseClient";
+import { reactive } from 'vue';
+import type { InjectionKey } from 'vue';
+import { Pokedex } from 'pokeapi-js-wrapper';
 
 // Interfaces for type safety
 interface Pokemon {
@@ -126,5 +125,5 @@ export const store: Store = {
   ...actions
 };
 
-export const storeKey: InjectionKey<Store> = Symbol("store");
+export const storeKey: InjectionKey<Store> = Symbol('store');
 export type { Pokemon };

@@ -24,7 +24,7 @@
             "
             :alt="lastCalled.name"
             style="height: 375px; max-width: 100%"
-          />
+          >
         </div>
       </div>
 
@@ -49,7 +49,7 @@
             width: calc(100% - 4px);
             margin: 2px;
           "
-        />
+        >
         <ul style="margin: 0 auto; padding: 20px; list-style: none">
           <li v-if="!filtered.length">No pokemon called yet</li>
           <li
@@ -63,7 +63,7 @@
               "
               :alt="pokemon.name"
               width="60"
-            />
+            >
             <span
               style="
                 display: inline-block;
@@ -81,9 +81,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, inject } from "vue";
-import { storeKey } from "@/store";
-import type { Store, Pokemon } from "@/store";
+import { ref, computed, inject } from 'vue';
+import { storeKey } from '@/store';
+import type { Store, Pokemon } from '@/store';
 
 const search = ref<string | null>(null);
 const store = inject(storeKey) as Store;
@@ -97,7 +97,7 @@ const reversed = computed<Pokemon[]>(() => {
 const filtered = computed<Pokemon[]>(() => {
   if (!search.value) return reversed.value;
   return reversed.value.filter(pokemon =>
-    pokemon.name.includes(search.value?.toLowerCase() ?? "")
+    pokemon.name.includes(search.value?.toLowerCase() ?? '')
   );
 });
 

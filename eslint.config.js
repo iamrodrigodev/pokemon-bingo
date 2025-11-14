@@ -1,21 +1,26 @@
-import { defineConfig } from 'eslint-define-config';
+import vueParser from 'vue-eslint-parser';
+import tseslint from 'typescript-eslint';
+import vuePlugin from 'eslint-plugin-vue';
+import prettierPlugin from 'eslint-plugin-prettier';
 
-export default defineConfig({
-  root: true,
-  env: {
-    browser: true,
-    es2021: true,
+export default [
+  ...tseslint.configs.recommended,
+  {
+  languageOptions: {
+    globals: {
+      browser: true,
+    },
+    parser: vueParser,
+    parserOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      parser: tseslint.parser,
+    },
   },
-  plugins: ['@typescript-eslint', 'vue', 'prettier'],
-  extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:vue/vue3-recommended',
-    'plugin:prettier/recommended',
-  ],
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+  plugins: {
+    '@typescript-eslint': tseslint.plugin,
+    vue: vuePlugin,
+    prettier: prettierPlugin,
   },
   rules: {
     semi: ['error', 'always'],
@@ -27,4 +32,5 @@ export default defineConfig({
     'vue/max-attributes-per-line': ['error', { singleline: 3 }],
     'vue/html-self-closing': 'error',
   },
-});
+  }
+];

@@ -15,16 +15,16 @@
       :src="imgUrl"
       style="max-width: 70%; max-height: 70%; margin: 0 auto; display: block"
       :alt="pokemon.name"
-    />
+    >
     <div v-if="pokemon" style="width: 100%; margin-top: 5px; text-transform: capitalize">
       {{ pokemon.name }}
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { computed, inject } from "vue";
-import { storeKey } from "@/store";
-import type { Store, Pokemon } from "@/store";
+import { computed, inject } from 'vue';
+import { storeKey } from '@/store';
+import type { Store, Pokemon } from '@/store';
 
 const props = defineProps<{
   index: number;
@@ -39,7 +39,7 @@ const pokemon = computed<Pokemon | null>(() => {
 });
 
 const imgUrl = computed<string>(() => {
-  if (!pokemon.value) return "";
+  if (!pokemon.value) return '';
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.value.id}.svg`;
 });
 
