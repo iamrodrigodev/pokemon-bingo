@@ -121,7 +121,7 @@ function randomNumber(min: number, max: number): number {
 }
 
 export const store: Store = {
-  state: readonly(state),
+  state: state,
   ...actions
 };
 
